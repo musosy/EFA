@@ -7,6 +7,7 @@
     "build": "tsc",
     "start:dev": "ts-node-dev -r dotenv/config --no-notify --respawn --exit-child -r tsconfig-paths/register --transpile-only src/server",
     "start:prod": "npm run build && node dist/server.js",
+    "start:docker": "docker compose up --build",
     "lint": "lint-staged",
     "test": "npx jest --runInBand --color --forceExit",
     "test:cov": "npx jest --runInBand --coverage --color --forceExit"

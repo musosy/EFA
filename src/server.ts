@@ -17,7 +17,7 @@ app.use(json());
 app.use('/api', HelloWorldController);
 
 app.listen(PORT, () => {
-    console.info('Hello World endpoint at http://localhost:3000/api');
+    console.info(`Hello World endpoint at http://localhost:${PORT}/api`);
 });
 
 export default app;

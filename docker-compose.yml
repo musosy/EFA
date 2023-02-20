@@ -1,0 +1,11 @@
+version: '3'
+services:
+  api:
+    build: ./
+    container_name: api
+    env_file:
+      - .env.docker
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./:/app
