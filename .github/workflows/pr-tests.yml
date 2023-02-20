@@ -1,10 +1,10 @@
-name: pr-tests
+name: PR and Push - Build and Test
 
 on:
   [pull_request, push]
 
 jobs:
-  pr-tests:
+  pr-pull-build-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
