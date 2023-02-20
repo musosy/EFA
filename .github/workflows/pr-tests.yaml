@@ -10,7 +10,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v2
       - name: Install dependencies
-        run: npm install
+        run: npm install && npm install rimraf
       - name: Build the application
         run: rimraf dist && tsc
       - name: Run tests with coverage
