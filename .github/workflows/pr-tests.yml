@@ -15,5 +15,3 @@ jobs:
         run: npm run build
       - name: Run tests with coverage
         run: npm run test:cov
-      - name: Build docker image and run container
-        run: npm run start:docker
