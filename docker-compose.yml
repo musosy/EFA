@@ -1,5 +1,23 @@
 version: '3'
 services:
+  postgres:
+    container_name: db
+    image: postgres:12.1
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DATABASE}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env.docker
+    volumes:
+      - ./data/postgres:/postgresql/data
   api:
     build: ./
     container_name: api
@@ -7,5 +25,8 @@ services:
       - .env.docker
     ports:
       - "4000:4000"
+    depends_on:
+      postgres:
+        condition: service_healthy
     volumes:
       - ./:/app
