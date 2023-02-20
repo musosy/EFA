@@ -63,6 +63,7 @@
   },
   "jest": {
     "verbose": true,
-    "coverageDirectory": "coverage"
+    "coverageDirectory": "coverage",
+    "coveragePathIgnorePatterns": ["<rootDir>/src/config/"]
   }
 }
