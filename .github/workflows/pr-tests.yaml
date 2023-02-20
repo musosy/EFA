@@ -1,0 +1,17 @@
+name: pr-tests
+
+on:
+  [pull_request, push]
+
+jobs:
+  pr-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm install
+      - name: Build the application
+        run: rimraf dist && tsc
+      - name: Run tests with coverage
+        run: npx jest --runInBand --coverage --color --forceExit
