@@ -8,21 +8,5 @@ jobs:
     container:
       image: node:lts
     steps:
-      - name: Log the node version
-        run: |
-          node -v
-          cat /etc/os-release
-      - name: Login to DockerHub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-      - name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          context: ./
-          file: ./Dockerfile
-          push: true
-      - name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
+      - name: Run docker
+        run: npm run start:docker
