@@ -14,4 +14,4 @@ jobs:
       - name: Build the application
         run: npm run build
       - name: Run tests with coverage
-        run: npx prisma db push && jest --runInBand --color --coverage
+        run: jest --runInBand --color --coverage
