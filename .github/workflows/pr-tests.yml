@@ -35,4 +35,4 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
       - name: Run tests
-        run: npx prisma db push && npx jest --runInBand --coverage --color
+        run: docker run --network="host" -c "npx prisma db push && npx jest --runInBand --coverage"
