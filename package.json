@@ -65,9 +65,6 @@
   "jest": {
     "verbose": true,
     "coverageDirectory": "coverage",
-    "setupFiles": [
-        "<rootDir>/.env.test"
-    ],
     "coveragePathIgnorePatterns": [
         "<rootDir>/test/",
         "<rootDir>/src/config/",
