@@ -10,8 +10,14 @@ const appLogger = Logger('app');
 const defaultPort = 3000;
 const defaultUrl = 'http://localhost:3000/api';
 
-if (!process.env.PORT) appLogger.warning(`Env variable "PORT" is not defined. Using default value "${defaultPort}".`);
-if (!process.env.URL) appLogger.warning(`Env variable "URL" is not defined. Using default value "${defaultUrl}".`);
+if (!process.env.PORT)
+    appLogger.warning(
+        `Env variable "PORT" is not defined. Using default value "${defaultPort}".`
+    );
+if (!process.env.URL)
+    appLogger.warning(
+        `Env variable "URL" is not defined. Using default value "${defaultUrl}".`
+    );
 
 const PORT = process.env.PORT ?? defaultPort;
 const URL = process.env.URL ?? defaultUrl;
@@ -23,6 +29,8 @@ app.use(json());
 
 app.use('/api', HelloWorldController);
 
-app.listen(PORT, () => { appLogger.info(`API reachable at ${URL}`); });
+app.listen(PORT, () => {
+    appLogger.info(`API reachable at ${URL}`);
+});
 
 export default app;

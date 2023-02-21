@@ -11,9 +11,12 @@
     "start:prod": "docker compose up --build",
     "prisma:format": "npx prisma format",
     "prisma:migrate": "npx prisma migrate dev",
-    "lint": "lint-staged",
+    "prettier:check": "npx prettier --check .",
+    "linter": "npx eslint .",
+    "prettier:fix": "npx prettier --write .",
+    "check": " npm run linter && npm run prettier:check",
     "test": "dotenv -c test -- npx prisma db push && dotenv -c test -- npx jest --runInBand --color",
-    "test:cov": "dotenv -c test -- npx prisma db push && dotenv -c test -- npx jest --runInBand --coverage --color"
+    "coverage": "dotenv -c test -- npx prisma db push && dotenv -c test -- npx jest --runInBand --coverage --color"
   },
   "keywords": [],
   "author": "",

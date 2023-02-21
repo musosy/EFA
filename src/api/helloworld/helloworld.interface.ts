@@ -1,8 +1,6 @@
 interface ICreateHelloWorld {
-    status: number,
-    message: string,
+    status: number;
+    message: string;
 }
 
-export {
-    ICreateHelloWorld,
-};
+export { ICreateHelloWorld };

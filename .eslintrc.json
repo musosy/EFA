@@ -17,6 +17,6 @@
         "indent": ["warn", 4],
         "no-trailing-spaces": ["warn", { "skipBlankLines": true }],
         "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
-        "no-console": ["warn", { "allow": ["warn", "error"] }]
+        "no-console": ["warn", { "allow": ["info", "warn", "error"] }]
     }
 }

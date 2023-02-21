@@ -43,7 +43,7 @@ npm run test
 
 To run tests with coverage:
 ```bash
-npm run test:cov
+npm run coverage
 ```
 
 To run the linter:

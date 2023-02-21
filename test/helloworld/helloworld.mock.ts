@@ -2,12 +2,12 @@ import { ICreateHelloWorld } from '../../src/api/helloworld/helloworld.interface
 
 const createValidHelloWorldMock: ICreateHelloWorld = {
     status: 200,
-    message: 'This is a mock'
+    message: 'This is a mock',
 };
 
 const updateValidHelloWorldMock: ICreateHelloWorld = {
     status: 200,
-    message: 'This is an updated mock'
+    message: 'This is an updated mock',
 };
 
 const createInvalidHelloWorldMock: any = {

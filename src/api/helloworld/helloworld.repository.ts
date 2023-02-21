@@ -11,55 +11,65 @@ const HelloWorldRepository: any = {
             select: {
                 id: true,
                 status: true,
-                message: true
-            }
+                message: true,
+            },
         });
     },
-    getOne: async (id: string): Promise<Result<helloworld, HelloWorldError>> => {
+    getOne: async (
+        id: string
+    ): Promise<Result<helloworld, HelloWorldError>> => {
         return ResultAsync.fromPromise(
             prisma.helloworld.findUniqueOrThrow({
                 where: {
-                    id: id
-                }
+                    id: id,
+                },
             }),
-            () => HelloWorldError.FindUniqueError,
+            () => HelloWorldError.FindUniqueError
         );
     },
-    create: async ({ status, message }: ICreateHelloWorld): Promise<Result<helloworld, HelloWorldError>> => {
+    create: async ({
+        status,
+        message,
+    }: ICreateHelloWorld): Promise<Result<helloworld, HelloWorldError>> => {
         return ResultAsync.fromPromise(
             prisma.helloworld.create({
                 data: {
                     status,
                     message,
-                }
+                },
             }),
-            () => HelloWorldError.CreationError,
+            () => HelloWorldError.CreationError
         );
     },
-    delete: async (id: string): Promise<Result<helloworld, HelloWorldError>> => {
+    delete: async (
+        id: string
+    ): Promise<Result<helloworld, HelloWorldError>> => {
         return ResultAsync.fromPromise(
             prisma.helloworld.delete({
                 where: {
-                    id
-                }
+                    id,
+                },
             }),
-            () => HelloWorldError.DeletionError,
+            () => HelloWorldError.DeletionError
         );
     },
-    update: async (id: string, { status, message }: ICreateHelloWorld): Promise<Result<helloworld, HelloWorldError>> => {
+    update: async (
+        id: string,
+        { status, message }: ICreateHelloWorld
+    ): Promise<Result<helloworld, HelloWorldError>> => {
         return ResultAsync.fromPromise(
             prisma.helloworld.update({
                 where: {
-                    id
+                    id,
                 },
                 data: {
                     status,
                     message,
-                }
+                },
             }),
-            () => HelloWorldError.UpdateError,
+            () => HelloWorldError.UpdateError
         );
-    }
+    },
 };
 
 export default HelloWorldRepository;
