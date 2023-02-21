@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import chalk from 'chalk';
 
 // eslint-disable-next-line no-console

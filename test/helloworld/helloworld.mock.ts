@@ -10,12 +10,12 @@ const updateValidHelloWorldMock: ICreateHelloWorld = {
     message: 'This is an updated mock',
 };
 
-const createInvalidHelloWorldMock: any = {
+const createInvalidHelloWorldMock: { status: number, message: number } = {
     status: 200,
     message: 200,
 };
 
-const updateInvalidHelloWorldMock: any = {
+const updateInvalidHelloWorldMock: { status: number, message: number } = {
     status: 200,
     message: 200,
 };

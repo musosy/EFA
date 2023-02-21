@@ -1,7 +1,6 @@
 import HelloWorldRepository from '../../src/api/helloworld/helloworld.repository';
 import { HelloWorldError } from '../../src/api/helloworld/helloworld.error';
 import prisma from '../../src/config/client';
-import Logger from '../../src/logger/logger';
 import { err } from 'neverthrow';
 import {
     createInvalidHelloWorldMock,
@@ -10,8 +9,6 @@ import {
     updateValidHelloWorldMock,
     updateInvalidHelloWorldMock,
 } from './helloworld.mock';
-
-const hwrLogger = Logger('test:helloworld:repository');
 
 beforeAll(async () => {
     await prisma.helloworld.deleteMany();
