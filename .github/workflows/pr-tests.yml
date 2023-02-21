@@ -14,4 +14,4 @@ jobs:
       - name: Build the application
         run: npm run build
       - name: Run tests with coverage
-        run: npx jest --runInBand --color --coverage
+        run: DATABASE_URL=${{ secrets.DATABASE_URL }} npx jest --runInBand --color --coverage
