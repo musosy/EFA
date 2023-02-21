@@ -1,17 +1,21 @@
 import express, { json } from 'express';
 import 'reflect-metadata';
 import cors from 'cors';
-import * as dotenv from 'dotenv';
-import DOTENV_FILE_PATH from './config/env';
-import HelloWorldController from './helloworld/helloworld.controller';
 
-dotenv.config({
-    path: DOTENV_FILE_PATH,
-    debug: true,
-});
+import Logger from './logger/logger';
+import HelloWorldController from './api/helloworld/helloworld.controller';
 
-const PORT = process.env.PORT ?? 3000;
-const URL = process.env.URL ?? 'http://localhost:3000';
+const appLogger = Logger('app');
+
+const defaultPort = 3000;
+const defaultUrl = 'http://localhost:3000/api';
+
+if (!process.env.PORT) appLogger.warning(`Env variable "PORT" is not defined. Using default value "${defaultPort}".`);
+if (!process.env.URL) appLogger.warning(`Env variable "URL" is not defined. Using default value "${defaultUrl}".`);
+
+const PORT = process.env.PORT ?? defaultPort;
+const URL = process.env.URL ?? defaultUrl;
+
 const app = express();
 
 app.use(cors());
@@ -19,8 +23,6 @@ app.use(json());
 
 app.use('/api', HelloWorldController);
 
-app.listen(PORT, () => {
-    console.info(`Hello World endpoint at ${URL}`);
-});
+app.listen(PORT, () => { appLogger.info(`API reachable at ${URL}`); });
 
 export default app;

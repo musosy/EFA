@@ -4,7 +4,8 @@ WORKDIR /app
 COPY package.json .
 
 RUN npm install
+RUN npm i dotenv-cli
 
 COPY . .
 
-CMD npm run start:docker
+CMD npx prisma db push && npm run start:dist

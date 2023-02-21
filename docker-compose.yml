@@ -15,16 +15,16 @@ services:
     ports:
       - "5432:5432"
     env_file:
-      - .env.docker
+      - .env.prod
     volumes:
       - ./data/postgres:/postgresql/data
   api:
     build: ./
     container_name: api
     env_file:
-      - .env.docker
+      - .env.prod
     ports:
-      - "4000:4000"
+      - "5000:5000"
     depends_on:
       postgres:
         condition: service_healthy
