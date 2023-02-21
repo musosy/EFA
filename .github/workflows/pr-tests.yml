@@ -15,22 +15,3 @@ jobs:
         run: npm run build
       - name: Check linter and prettier
         run: npm run check
-  database-container:
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:12.1
-        env:
-          POSTGRES_PASSWORD: postgres
-        ports:
-          - 5432:5432
-        options: |
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 10s
-          --health-retries 5
-        steps:
-          - name: Verify Postgres connection
-            run: |
-              sudo apt-get install -y postgresql
-              sudo service postgresql start
