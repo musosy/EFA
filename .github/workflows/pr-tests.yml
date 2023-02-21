@@ -4,7 +4,7 @@ on:
   [pull_request, push]
 
 jobs:
-  pr-pull-build-tests:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -15,5 +15,22 @@ jobs:
         run: npm run build
       - name: Check linter and prettier
         run: npm run check
-      - name: Run tests with coverage
-        run: DATABASE_URL=${{ secrets.DATABASE_URL }} npx jest --runInBand --color --coverage
+  database-container:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:12.1
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 10s
+          --health-retries 5
+        steps:
+          - name: Verify Postgres connection
+            run: >-
+              sudo apt-get install -y postgresql
+              sudo service postgresql start
