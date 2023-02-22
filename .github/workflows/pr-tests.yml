@@ -4,7 +4,7 @@ on:
   [pull_request, push]
 
 jobs:
-  build:
+  build: # install deps and then build the app
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
@@ -15,7 +15,7 @@ jobs:
         run: npm run build
       - name: Check linter and prettier
         run: npm run check
-  docker:
+  docker: # push docker image to dockerhub
     runs-on: ubuntu-latest
     steps:
       - name: Login to DockerHub
@@ -24,7 +24,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
@@ -32,3 +32,25 @@ jobs:
           context: ./
           push: true
           tags: musosy/efa:latest
+  jest:
+    runs-on: ubuntu-latest
+    container: node:12.1
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        steps:
+          - name: Check out code
+            uses: actions/checkout@v3
+          - name: Install deps
+            run: npm i
+          - name: Run migrations
+            run: npx prisma db push
+          - name: Run tests
+            run: npx jest --coverage --runInBand --color
