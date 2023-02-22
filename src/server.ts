@@ -29,8 +29,15 @@ app.use(json());
 
 app.use('/api', HelloWorldController);
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     appLogger.info(`API reachable at ${URL}`);
+});
+
+// ! This is only used to close server after the tests
+app.get('/shutdown', (_req, res) => {
+    if (process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'dev')
+        server.close();
+    res.send('Bye bye');
 });
 
 export default app;

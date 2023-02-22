@@ -74,7 +74,8 @@
       "<rootDir>/src/logger/",
       "<rootDir>/src/common/",
       "<rootDir>/src/api/*/*.interface.ts",
-      "<rootDir>/src/api/*/*.error.ts"
+      "<rootDir>/src/api/*/*.error.ts",
+      "<rootDir>/src/server.ts"
     ]
   }
 }

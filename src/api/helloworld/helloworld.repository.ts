@@ -1,7 +1,7 @@
 import { helloworld } from '@prisma/client';
 import prisma from '../../config/client';
 import { Result, ResultAsync } from 'neverthrow';
-import { HelloWorldError } from './helloworld.error';
+import { HelloWorldError, HelloWorldErrorEnum } from './helloworld.error';
 import { ICreateHelloWorld } from './helloworld.interface';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -24,7 +24,12 @@ const HelloWorldRepository: any = {
                     id: id,
                 },
             }),
-            () => HelloWorldError.FindUniqueError
+            (e: unknown) => {
+                return {
+                    message: HelloWorldErrorEnum.FindUniqueError,
+                    details: e,
+                };
+            }
         );
     },
     create: async ({
@@ -38,7 +43,12 @@ const HelloWorldRepository: any = {
                     message,
                 },
             }),
-            () => HelloWorldError.CreationError
+            (e: unknown) => {
+                return {
+                    message: HelloWorldErrorEnum.CreationError,
+                    details: e,
+                };
+            }
         );
     },
     delete: async (
@@ -50,7 +60,12 @@ const HelloWorldRepository: any = {
                     id,
                 },
             }),
-            () => HelloWorldError.DeletionError
+            (e: unknown) => {
+                return {
+                    message: HelloWorldErrorEnum.DeletionError,
+                    details: e,
+                };
+            }
         );
     },
     update: async (
@@ -67,7 +82,12 @@ const HelloWorldRepository: any = {
                     message,
                 },
             }),
-            () => HelloWorldError.UpdateError
+            (e: unknown) => {
+                return {
+                    message: HelloWorldErrorEnum.UpdateError,
+                    details: e,
+                };
+            }
         );
     },
 };
