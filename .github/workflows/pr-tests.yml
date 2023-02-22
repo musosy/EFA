@@ -55,7 +55,7 @@ jobs:
       - name: Install deps
         run: npm install --force
       - name: Run migrations
-        run: npx prisma migrate dev
+        run: npx prisma migrate dev --name="test"
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/efa_test
       - name: Apply seed

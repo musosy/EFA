@@ -69,12 +69,12 @@
     "verbose": true,
     "coverageDirectory": "coverage",
     "coveragePathIgnorePatterns": [
-        "<rootDir>/test/",
-        "<rootDir>/src/config/",
-        "<rootDir>/src/logger/",
-        "<rootDir>/src/common/",
-        "<rootDir>/src/api/*/*.interface.ts",
-        "<rootDir>/src/api/*/*.error.ts"
+      "<rootDir>/test/",
+      "<rootDir>/src/config/",
+      "<rootDir>/src/logger/",
+      "<rootDir>/src/common/",
+      "<rootDir>/src/api/*/*.interface.ts",
+      "<rootDir>/src/api/*/*.error.ts"
     ]
   }
 }
