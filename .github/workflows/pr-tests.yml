@@ -34,10 +34,9 @@ jobs:
           tags: musosy/efa:latest
   jest:
     runs-on: ubuntu-latest
-    container: node:12.1
     services:
       postgres:
-        image: postgres
+        image: postgres:12.1
         ports:
           - 5432:5432
         env:
@@ -54,11 +53,5 @@ jobs:
         uses: actions/checkout@v3
       - name: Install deps
         run: npm install --force
-      - name: Run migrations
-        run: npx prisma migrate dev --name="test"
-        env:
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/efa_test
-      - name: Apply seed
-        run: npx prisma db seed
       - name: Run tests
-        run: npx jest --runInBand --coverage
+        run: npm run coverage
