@@ -54,4 +54,6 @@ jobs:
       - name: Install deps
         run: npm install --force
       - name: Run tests
-        run: npm run coverage
+        run: |
+          DATABASE_URL="postgres://postgres:postgres@localhost:5432/efa_test" npx prisma db push &&
+          DATABASE_URL="postgres://postgres:postgres@localhost:5432/efa_test" npx jest --runInBand --coverage
