@@ -10,7 +10,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Build the application
         run: npm run build
       - name: Check linter and prettier
@@ -38,8 +38,12 @@ jobs:
     services:
       postgres:
         image: postgres
+        ports:
+          - 5432:5432
         env:
+          POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: efa_test
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -49,8 +53,12 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
       - name: Install deps
-        run: npm i --force
+        run: npm ci
       - name: Run migrations
-        run: npx prisma db push
+        run: npx prisma migrate dev
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/efa_test
+      - name: Apply seed
+        run: npx prisma db seed
       - name: Run tests
-        run: npx jest --coverage --runInBand --color
+        run: npx jest --runInBand --coverage
