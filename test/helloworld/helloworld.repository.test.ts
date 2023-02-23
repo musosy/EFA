@@ -8,7 +8,6 @@ import {
     updateValidHelloWorldMock,
     updateInvalidHelloWorldMock,
 } from './helloworld.mock';
-import Logger from '../../src/logger/logger';
 
 describe('HelloWorldRepository tests', () => {
     beforeAll(async () => {

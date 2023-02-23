@@ -1,7 +1,7 @@
 import { user } from '@prisma/client';
 import crypto from 'crypto';
 import { Request, Response } from 'express';
-import jwt, { JwtPayload, SignOptions } from 'jsonwebtoken';
+import jwt, { SignOptions } from 'jsonwebtoken';
 import { Result } from 'neverthrow';
 import AuthRepository from './auth.repository';
 import { jwtConstants } from './authguard/constant';

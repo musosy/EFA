@@ -1,4 +1,3 @@
-import { Request, Response } from 'express';
 import { Err, Ok } from 'neverthrow';
 import AuthRepository from './auth.repository';
 import AuthUtils from './auth.utils';

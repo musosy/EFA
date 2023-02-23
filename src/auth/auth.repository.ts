@@ -1,6 +1,6 @@
 import { user } from '@prisma/client';
 import { ResultAsync, Result } from 'neverthrow';
-import prisma from 'src/config/client';
+import prisma from '../config/client';
 
 const AuthRepository = {
     getOneByUsername: async (
