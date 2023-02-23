@@ -12,8 +12,12 @@ AuthController.post('/register', async (req: Request, res: Response) => {
     res.json(await AuthService.register(req.body));
 });
 
-AuthController.get('/secured-route', JwtStrategy, async (req:Request, res: Response) => {
-    res.json(AuthService.securedRouteExemple());
-});
+AuthController.get(
+    '/secured-route',
+    JwtStrategy,
+    async (req: Request, res: Response) => {
+        res.json(AuthService.securedRouteExemple());
+    }
+);
 
 export default AuthController;

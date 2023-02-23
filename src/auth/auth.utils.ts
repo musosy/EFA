@@ -6,7 +6,6 @@ import { Result } from 'neverthrow';
 import AuthRepository from './auth.repository';
 import { jwtConstants } from './authguard/constant';
 
-
 const ONE_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
 
 export interface Token {
@@ -18,12 +17,16 @@ export interface Token {
 const AuthUtils = {
     hash: (s: string): string => crypto.createHmac('sha256', s).digest('hex'),
     createToken: (payload: string, tokenOptions: SignOptions = {}): string => {
-        const tokenSettings = { ...AuthUtils.generateTokenSettings(), ...tokenOptions };
-        return jwt.sign({
-            userId: payload,
-            ...tokenSettings,
-        },
-        jwtConstants.secret
+        const tokenSettings = {
+            ...AuthUtils.generateTokenSettings(),
+            ...tokenOptions,
+        };
+        return jwt.sign(
+            {
+                userId: payload,
+                ...tokenSettings,
+            },
+            jwtConstants.secret
         );
     },
     generateTokenSettings: () => {
@@ -38,7 +41,8 @@ const AuthUtils = {
     getUserIdFromToken: async (req: Request, res: Response) => {
         const token = req.cookies.session_id;
         if (token) {
-            const { userId, expiresIn, emittedAt } = AuthUtils.getTokenPayload(token);
+            const { userId, expiresIn, emittedAt } =
+                AuthUtils.getTokenPayload(token);
             if (AuthUtils.isTokenExpired(expiresIn, emittedAt)) {
                 res.clearCookie('session');
                 throw new Error('Session expired');
@@ -52,8 +56,10 @@ const AuthUtils = {
         }
         return '';
     },
-    isTokenExpired: (expiresIn: number, emittedAt: number): boolean => Date.now() > expiresIn * 1000 + emittedAt,
-    validate: async (username: string): Promise<Result<user, any>> => await AuthRepository.getOneByUsername(username),
+    isTokenExpired: (expiresIn: number, emittedAt: number): boolean =>
+        Date.now() > expiresIn * 1000 + emittedAt,
+    validate: async (username: string): Promise<Result<user, any>> =>
+        await AuthRepository.getOneByUsername(username),
 };
 
 export default AuthUtils;

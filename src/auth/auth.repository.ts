@@ -3,12 +3,14 @@ import { ResultAsync, Result } from 'neverthrow';
 import prisma from 'src/config/client';
 
 const AuthRepository = {
-    getOneByUsername: async (username: string): Promise<Result<user, unknown>> => {
+    getOneByUsername: async (
+        username: string
+    ): Promise<Result<user, unknown>> => {
         return ResultAsync.fromPromise(
             prisma.user.findUniqueOrThrow({
                 where: {
-                    username
-                }
+                    username,
+                },
             }),
             (e) => {
                 return {
@@ -22,13 +24,13 @@ const AuthRepository = {
         return ResultAsync.fromPromise(
             prisma.user.findUniqueOrThrow({
                 where: {
-                    id: userId
-                }
+                    id: userId,
+                },
             }),
             (e) => {
                 return {
                     message: 'Could not find user',
-                    details: e
+                    details: e,
                 };
             }
         );
@@ -38,8 +40,8 @@ const AuthRepository = {
             prisma.user.create({
                 data: {
                     username,
-                    password
-                }
+                    password,
+                },
             }),
             (e: unknown) => {
                 return {

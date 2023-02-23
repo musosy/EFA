@@ -7,7 +7,7 @@ const JwtService = {
     },
     verify: (token: string): jwt.Jwt | jwt.JwtPayload | string => {
         return jwt.verify(token, jwtConstants.secret);
-    }
+    },
 };
 
 export default JwtService;

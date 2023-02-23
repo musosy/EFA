@@ -7,7 +7,6 @@ HelloWorldController.get('/', async (_req: Request, res: Response) => {
     res.json(await HelloWorldService.getAll());
 });
 
-
 HelloWorldController.get('/:id', async (req: Request, res: Response) => {
     res.json(await HelloWorldService.getOne(req.params.id));
 });
