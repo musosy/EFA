@@ -4,6 +4,7 @@ import cors from 'cors';
 
 import Logger from './logger/logger';
 import HelloWorldController from './api/helloworld/helloworld.controller';
+import AuthController from './auth/auth.controller';
 
 const appLogger = Logger('app');
 
@@ -27,6 +28,7 @@ const app = express();
 app.use(cors());
 app.use(json());
 
+app.use('/', AuthController);
 app.use('/api', HelloWorldController);
 
 const server = app.listen(PORT, () => {

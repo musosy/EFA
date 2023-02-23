@@ -15,3 +15,9 @@ model helloworld {
   status  Int
   message String
 }
+
+model user {
+  id       String @id @default(uuid())
+  username String @unique
+  password String
+}
