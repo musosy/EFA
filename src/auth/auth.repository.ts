@@ -1,6 +1,7 @@
 import { user } from '@prisma/client';
 import { ResultAsync, Result } from 'neverthrow';
 import prisma from '../config/client';
+import { AuthError } from './auth.error';
 import { CreateUser, QueryFailed } from './auth.interface';
 
 const AuthRepository = {
@@ -15,7 +16,7 @@ const AuthRepository = {
             }),
             (e) => {
                 return {
-                    message: 'Could not find user',
+                    message: AuthError.UserNotFound,
                     details: e,
                 };
             }
@@ -30,7 +31,7 @@ const AuthRepository = {
             }),
             (e) => {
                 return {
-                    message: 'Could not find user',
+                    message: AuthError.UserNotFound,
                     details: e,
                 };
             }
@@ -49,7 +50,7 @@ const AuthRepository = {
             }),
             (e) => {
                 return {
-                    message: 'Could not create user',
+                    message: AuthError.CouldNotCreateUser,
                     details: e,
                 };
             }

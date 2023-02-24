@@ -1,3 +1,5 @@
+import { AuthError } from './auth.error';
+
 export type CreateUser = {
     username: string;
     password: string;
@@ -10,12 +12,7 @@ export type AuthSuccess = {
     user_id: string;
 };
 
-export type AuthFailure = {
-    status: number;
-    message: string;
-};
-
 export type QueryFailed = {
-    message: string;
+    message: AuthError;
     details: unknown;
 };

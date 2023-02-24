@@ -15,7 +15,7 @@ AuthController.post('/register', async (req: Request, res: Response) => {
 AuthController.get(
     '/secured-route',
     JwtStrategy,
-    async (req: Request, res: Response) => {
+    async (_req: Request, res: Response) => {
         res.json(AuthService.securedRouteExemple());
     }
 );
