@@ -1,16 +1,20 @@
-import { Err, Ok } from 'neverthrow';
+import { Result, Err, Ok } from 'neverthrow';
 import AuthRepository from './auth.repository';
 import AuthUtils from './auth.utils';
+import { CreateUser, AuthSuccess, AuthFailure } from './auth.interface';
+import { user } from '@prisma/client';
 
 const AuthService = {
-    register: async (userDetails: any): Promise<any> => {
+    register: async (
+        userDetails: CreateUser
+    ): Promise<Result<AuthSuccess, AuthFailure>> => {
         userDetails.password = AuthUtils.hash(userDetails.password);
 
         const userAlreadyExists = (
             await AuthRepository.getOneByUsername(userDetails.username)
         ).isOk();
         if (userAlreadyExists)
-            return { status: 200, message: 'Username already taken' };
+            return new Err({ status: 200, message: 'Username already taken' });
 
         const newUser = await AuthRepository.create(userDetails);
         return newUser.map((user) => {
@@ -24,15 +28,17 @@ const AuthService = {
             };
         });
     },
-    login: async (user: any): Promise<any> => {
+    login: async (
+        user: CreateUser
+    ): Promise<Result<AuthSuccess, AuthFailure>> => {
         const userData = await AuthUtils.validate(user.username);
         return userData
-            .andThen((u) => {
+            .andThen<Result<user, string>>((u) => {
                 return u.password == AuthUtils.hash(user.password)
                     ? new Ok(u)
                     : new Err('Incorrect password');
             })
-            .map((u: any) => {
+            .map((u) => {
                 const payload = `${u.id}`;
                 const token = AuthUtils.createToken(payload);
                 return {

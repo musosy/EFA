@@ -58,7 +58,7 @@ const AuthUtils = {
     },
     isTokenExpired: (expiresIn: number, emittedAt: number): boolean =>
         Date.now() > expiresIn * 1000 + emittedAt,
-    validate: async (username: string): Promise<Result<user, any>> =>
+    validate: async (username: string): Promise<Result<user, unknown>> =>
         await AuthRepository.getOneByUsername(username),
 };
 

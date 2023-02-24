@@ -1,11 +1,12 @@
 import { user } from '@prisma/client';
 import { ResultAsync, Result } from 'neverthrow';
 import prisma from '../config/client';
+import { CreateUser, QueryFailed } from './auth.interface';
 
 const AuthRepository = {
     getOneByUsername: async (
         username: string
-    ): Promise<Result<user, unknown>> => {
+    ): Promise<Result<user, QueryFailed>> => {
         return ResultAsync.fromPromise(
             prisma.user.findUniqueOrThrow({
                 where: {
@@ -20,7 +21,7 @@ const AuthRepository = {
             }
         );
     },
-    getOneById: async (userId: string): Promise<Result<user, any>> => {
+    getOneById: async (userId: string): Promise<Result<user, QueryFailed>> => {
         return ResultAsync.fromPromise(
             prisma.user.findUniqueOrThrow({
                 where: {
@@ -35,7 +36,10 @@ const AuthRepository = {
             }
         );
     },
-    create: async ({ username, password }: any): Promise<Result<user, any>> => {
+    create: async ({
+        username,
+        password,
+    }: CreateUser): Promise<Result<user, QueryFailed>> => {
         return ResultAsync.fromPromise(
             prisma.user.create({
                 data: {
@@ -43,10 +47,10 @@ const AuthRepository = {
                     password,
                 },
             }),
-            (e: unknown) => {
+            (e) => {
                 return {
                     message: 'Could not create user',
-                    detail: e,
+                    details: e,
                 };
             }
         );

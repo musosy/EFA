@@ -77,7 +77,8 @@
       "<rootDir>/src/common/",
       "<rootDir>/src/api/*/*.interface.ts",
       "<rootDir>/src/api/*/*.error.ts",
-      "<rootDir>/src/server.ts"
+      "<rootDir>/src/server.ts",
+      "<rootDir>/src/auth"
     ]
   }
 }
