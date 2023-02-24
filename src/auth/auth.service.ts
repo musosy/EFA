@@ -1,13 +1,13 @@
 import { Result, Err, Ok } from 'neverthrow';
 import AuthRepository from './auth.repository';
 import AuthUtils from './auth.utils';
-import { CreateUser, AuthSuccess, AuthFailure } from './auth.interface';
+import { CreateUser, AuthSuccess, AuthFailure, QueryFailed } from './auth.interface';
 import { user } from '@prisma/client';
 
 const AuthService = {
     register: async (
         userDetails: CreateUser
-    ): Promise<Result<AuthSuccess, AuthFailure>> => {
+    ): Promise<Result<AuthSuccess, AuthFailure | QueryFailed>> => {
         userDetails.password = AuthUtils.hash(userDetails.password);
 
         const userAlreadyExists = (
@@ -30,13 +30,12 @@ const AuthService = {
     },
     login: async (
         user: CreateUser
-    ): Promise<Result<AuthSuccess, AuthFailure>> => {
-        const userData = await AuthUtils.validate(user.username);
-        return userData
-            .andThen<Result<user, string>>((u) => {
+    ): Promise<Result<AuthSuccess, AuthFailure | QueryFailed>> => {
+        return (await AuthUtils.validate(user.username))
+            .andThen<Result<user, AuthFailure>>((u) => {
                 return u.password == AuthUtils.hash(user.password)
                     ? new Ok(u)
-                    : new Err('Incorrect password');
+                    : new Err({ status: 200, message: 'Invalid password' });
             })
             .map((u) => {
                 const payload = `${u.id}`;

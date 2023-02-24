@@ -5,6 +5,7 @@ import jwt, { SignOptions } from 'jsonwebtoken';
 import { Result } from 'neverthrow';
 import AuthRepository from './auth.repository';
 import { jwtConstants } from './authguard/constant';
+import { QueryFailed } from './auth.interface';
 
 const ONE_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
 
@@ -58,7 +59,7 @@ const AuthUtils = {
     },
     isTokenExpired: (expiresIn: number, emittedAt: number): boolean =>
         Date.now() > expiresIn * 1000 + emittedAt,
-    validate: async (username: string): Promise<Result<user, unknown>> =>
+    validate: async (username: string): Promise<Result<user, QueryFailed>> =>
         await AuthRepository.getOneByUsername(username),
 };
 
