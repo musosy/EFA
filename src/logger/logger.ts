@@ -13,11 +13,11 @@ const colors = {
 const Logger = (name: string) => {
     const loggerName =
         '[' +
-        chalk.bold.hex('#0096FF')(name.toUpperCase()) +
-        ' | ' +
         chalk.hex('#FFC300 ')`${(
             process.env.NODE_ENV ?? 'dev'
         ).toUpperCase()}` +
+        ' | ' +
+        chalk.bold.hex('#0096FF')(name.toUpperCase()) +
         ']';
     return {
         error: (s: any): void =>

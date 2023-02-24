@@ -1,6 +1,7 @@
 import express, { json } from 'express';
 import 'reflect-metadata';
 import cors from 'cors';
+import morgan from 'morgan';
 
 import Logger from './logger/logger';
 import HelloWorldController from './api/helloworld/helloworld.controller';
@@ -25,6 +26,7 @@ const URL = process.env.URL ?? defaultUrl;
 
 const app = express();
 
+app.use(morgan('combined'));
 app.use(cors());
 app.use(json());
 
