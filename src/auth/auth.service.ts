@@ -1,7 +1,12 @@
 import { Result, Err, Ok } from 'neverthrow';
 import AuthRepository from './auth.repository';
 import AuthUtils from './auth.utils';
-import { CreateUser, AuthSuccess, AuthFailure, QueryFailed } from './auth.interface';
+import {
+    CreateUser,
+    AuthSuccess,
+    AuthFailure,
+    QueryFailed,
+} from './auth.interface';
 import { user } from '@prisma/client';
 
 const AuthService = {

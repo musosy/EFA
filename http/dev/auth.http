@@ -1,0 +1,13 @@
+### POST register
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+    "username": "mouss",
+    "password": "password"
+}
+
+### GET secured-route
+GET http://localhost:3000/secured-route
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3OTRjY2YzNS00Njg4LTQ5MmYtODM3NS00ODY3ZWQyOGM0MGYiLCJleHBpcmVzSW4iOjYwNDgwMCwiZW1pdHRlZEF0IjoxNjc3MTgzODUyODgxLCJpYXQiOjE2NzcxODM4NTJ9.E6lIu0LPQSMFImSTQMjgLwwpnbMFBRBWOl_On0o-m6Y

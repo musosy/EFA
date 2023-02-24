@@ -8,3 +8,4 @@ docker-compose.yml
 package*.json
 README.md
 tsconfig.json
+http

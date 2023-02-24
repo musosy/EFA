@@ -1,9 +1,7 @@
 node_modules
 dist
 coverage
-http
 .env
-.env.docker
 .env.test
 .env.prod
 package-lock.json
