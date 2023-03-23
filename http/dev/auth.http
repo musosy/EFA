@@ -7,6 +7,16 @@ Content-Type: application/json
     "password": "password"
 }
 
+### POST login
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "username": "mouss",
+    "password": "password"
+}
+
+
 ### GET secured-route
 GET http://localhost:3000/secured-route
 Content-Type: application/json

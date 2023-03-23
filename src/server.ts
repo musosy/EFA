@@ -3,6 +3,8 @@ import 'reflect-metadata';
 import cors from 'cors';
 import morgan from 'morgan';
 
+import * as trpcExpress from '@trpc/server/adapters/express';
+
 import Logger from './logger/logger';
 import HelloWorldController from './api/helloworld/helloworld.controller';
 import AuthController from './auth/auth.controller';
@@ -26,12 +28,13 @@ const URL = process.env.URL ?? defaultUrl;
 
 const app = express();
 
-app.use(morgan('combined'));
+app.use(morgan('tiny'));
 app.use(cors());
 app.use(json());
 
 app.use('/', AuthController);
 app.use('/api', HelloWorldController);
+
 
 const server = app.listen(PORT, () => {
     appLogger.info(`API reachable at ${URL}`);

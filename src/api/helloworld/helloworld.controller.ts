@@ -1,3 +1,23 @@
+import { initTRPC } from '@trpc/server';
+import { z } from 'zod';
+
+const t = initTRPC.create();
+
+export const helloWorldRouter = t.router({
+    all: t.procedure
+        .query(async () => {
+            return await HelloWorldService.getAll();
+        }),
+    create: t.procedure
+        .input(
+            z.object({
+                status: z.number().int(),
+                message: z.string().nonempty(),
+            }),
+        )
+        .mutation(async ({ input }) => await HelloWorldService.create(input))
+});
+
 import { Router, Request, Response } from 'express';
 import HelloWorldService from './helloworld.service';
 

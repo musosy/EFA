@@ -33,7 +33,7 @@ const AuthService = {
     ): Promise<Result<AuthSuccess, AuthError | QueryFailed>> => {
         return (await AuthUtils.validate(user.username))
             .andThen<Result<user, AuthError>>((u) => {
-                return u.password == AuthUtils.hash(user.password)
+                return AuthUtils.compare(user.password, u.password)
                     ? new Ok(u)
                     : new Err(AuthError.IncorrectPassword);
             })

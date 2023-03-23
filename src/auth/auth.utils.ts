@@ -1,5 +1,5 @@
 import { user } from '@prisma/client';
-import crypto from 'crypto';
+import bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import jwt, { SignOptions } from 'jsonwebtoken';
 import { Result } from 'neverthrow';
@@ -8,6 +8,7 @@ import { jwtConstants } from './authguard/constant';
 import { QueryFailed } from './auth.interface';
 
 const ONE_WEEK_IN_SECONDS = 60 * 60 * 24 * 7;
+const SALT_ROUNDS = 10;
 
 export interface Token {
     expiresIn: number;
@@ -16,7 +17,8 @@ export interface Token {
 }
 
 const AuthUtils = {
-    hash: (s: string): string => crypto.createHmac('sha256', s).digest('hex'),
+    hash: (s: string): string => bcrypt.hashSync(s, SALT_ROUNDS),
+    compare: (plain: string, hashed: string) => bcrypt.compareSync(plain, hashed),
     createToken: (payload: string, tokenOptions: SignOptions = {}): string => {
         const tokenSettings = {
             ...AuthUtils.generateTokenSettings(),
