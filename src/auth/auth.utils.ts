@@ -18,7 +18,8 @@ export interface Token {
 
 const AuthUtils = {
     hash: (s: string): string => bcrypt.hashSync(s, SALT_ROUNDS),
-    compare: (plain: string, hashed: string) => bcrypt.compareSync(plain, hashed),
+    compare: (plain: string, hashed: string) =>
+        bcrypt.compareSync(plain, hashed),
     createToken: (payload: string, tokenOptions: SignOptions = {}): string => {
         const tokenSettings = {
             ...AuthUtils.generateTokenSettings(),
